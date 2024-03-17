@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "llm-sql-converter"
+version = "0.1.0"
+description = ""
+authors = ["case-k-git <casekblog@gmail.com>"]
+readme = "README.md"
+packages = [{include = "llm_sql_converter"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langchain = "^0.1.12"
+openai = "^1.14.0"
+pyspark = "^3.5.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

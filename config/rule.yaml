@@ -1,0 +1,22 @@
+rules:
+  rule: "
+    ### Instructions ###
+    Convert the entered PL/SQL into Spark SQL following the rules below.
+    1.Convert UPDATE statements into SELECT statements using CASE WHNE CONDITION.
+    2.Convert INSERT statements into SELECT statements that produce the result of the INSERT operation.
+    "
+  rule_example:
+    - input: |
+        UPDATE employees
+        SET salary = CASE
+                        WHEN department_id = 1 THEN salary * 1.10
+                        ELSE salary
+                    END;
+      output: |
+        SELECT
+            *,
+            CASE
+                WHEN department_id = 1 THEN salary * 1.10
+                ELSE salary
+            END AS salary
+        FROM employees;
