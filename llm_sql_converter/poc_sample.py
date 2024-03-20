@@ -31,11 +31,11 @@ def predict(input_sql: str, rule: str, rule_example: str) -> str:
 def validate_spark_sql(sql_query: str) -> (str, bool):
     print('Spark SQL syntax and convert rule validation start ...')
     if 'UPDATE' in sql_query:
-        new_prompt = f'UPDATE is not supported: {sql_query}. Please convert into SELECT statement.'
+        new_prompt = f'UPDATE is not supported: {sql_query}. Please convert into Spark SQL SELECT statement.'
         print('validation failed new prompt is created:', new_prompt)
         return new_prompt, False
     if 'INSERT' in sql_query:
-        new_prompt = f'INSERT is not supported: {sql_query}. Please convert into SELECT statement.'
+        new_prompt = f'INSERT is not supported: {sql_query}. Please convert into Spark SQL SELECT statement.'
         print('validation failed new prompt is created:', new_prompt)
         return new_prompt, False
     try:
@@ -43,7 +43,7 @@ def validate_spark_sql(sql_query: str) -> (str, bool):
         spark._jsparkSession.sessionState().sqlParser().parsePlan(sql_query)
         return sql_query, True
     except Exception as e:
-        new_prompt = f'Query Parse Error: {e}.Input SQL: {sql_query}.Please fix Input SQL from Query Parse Error.'
+        new_prompt = f'Spark SQL parse error: {e}.Passed SQL: {sql_query}.Please fix Passed SQL to Spark SQL using Spark SQL parse error results.'
         print('validation failed new prompt is created:', new_prompt)
         return new_prompt, False
     
