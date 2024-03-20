@@ -19,8 +19,6 @@ export OPENAI_API_KEY=<API_KEY>
 
 ```
 poetry update
-poetry run python llm_sql_converter/poc_sample.py
-
 ```
 
 ## Sample Usage
@@ -30,60 +28,100 @@ In PL/SQL, operations can be transformed according to the method you desire, pro
 input rule
 `config/rule.yaml`
 
+rule
+
+```yaml
+rule: "
+  ### Instructions ###
+  Convert the entered PL/SQL into Spark SQL following the rules below.
+  1.Convert UPDATE statements into SELECT statements using CASE WHNE CONDITION.
+  2.Convert INSERT statements into SELECT statements that produce the result of the INSERT operation.
+  "
 ```
-### Instructions ###
-Convert the entered PL/SQL into Spark SQL following the rules below.
-1.Convert UPDATE statements into SELECT statements using CASE WHNE CONDITION.
-2.Convert INSERT statements into SELECT statements that produce the result of the INSERT operation.
+
+rule exmaple of input and output results
+
+```yaml
+rule_example:
+  - input: |
+      UPDATE employees
+      SET salary = CASE
+                      WHEN department_id = 1 THEN salary * 1.10
+                      ELSE salary
+                  END;
+    output: |
+      SELECT
+          *,
+          CASE
+              WHEN department_id = 1 THEN salary * 1.10
+              ELSE salary
+          END AS salary
+      FROM employees;
 ```
 
 ### 1. PL/SQL to Spark SQL ( Update to Select )
 
-```
-poetry run python llm_sql_converter/poc_sample.py sample_update.sql
-```
+command to execute
 
 ```
+
+poetry run python llm_sql_converter/poc_sample.py sample_update.sql
+
+```
+
+executed logs
+
+```
+
 input: BEGIN
-    UPDATE employees
-    SET
-        salary = salary * 1.05,
-        last_update = SYSDATE
-    WHERE employee_id = 1234;
-    COMMIT;
+UPDATE employees
+SET
+salary = salary \* 1.05,
+last_update = SYSDATE
+WHERE employee_id = 1234;
+COMMIT;
 END;
 
 Spark SQL syntax and convert rule validation start ...
 Spark SQL Syntax is valid:
-    SELECT
-        *,
-        CASE
-            WHEN employee_id = 1234 THEN salary * 1.05
-            ELSE salary
-        END AS salary,
-        SYSDATE AS last_update
-    FROM employees;
+SELECT
+_,
+CASE
+WHEN employee_id = 1234 THEN salary _ 1.05
+ELSE salary
+END AS salary,
+SYSDATE AS last_update
+FROM employees;
+
 ```
 
 ### 2. PL/SQL to Spark SQL ( Insert to Select )
 
-```
-poetry run python llm_sql_converter/poc_sample.py sample_insert.sql
-```
+command to execute
 
 ```
+
+poetry run python llm_sql_converter/poc_sample.py sample_insert.sql
+
+```
+
+executed logs
+
+```
+
 input: INSERT INTO employees (employee_id, last_name, email, hire_date, job_id)
 VALUES (207, 'Smith', 'smith@example.com', '17-JUL-2021', 'IT_PROG');
 
 Spark SQL syntax and convert rule validation start ...
 Spark SQL Syntax is valid:
-    SELECT
-        207 AS employee_id,
-        'Smith' AS last_name,
-        'smith@example.com' AS email,
-        '17-JUL-2021' AS hire_date,
-        'IT_PROG' AS job_id
-    FROM employees;
+SELECT
+207 AS employee_id,
+'Smith' AS last_name,
+'smith@example.com' AS email,
+'17-JUL-2021' AS hire_date,
+'IT_PROG' AS job_id
+FROM employees;
+
 ```
 
 ## Contributing
