@@ -128,4 +128,4 @@ Contribution is welcome from anyone. This project is intended to be a safe, welc
 
 ## License
 
-lm-sql-converter is available as open source under the terms of the MIT License. For more details, see the [LICENSE](./LICENSE.txt) file.
+llm-sql-converter is available as open source under the terms of the MIT License. For more details, see the [LICENSE](./LICENSE.txt) file.
