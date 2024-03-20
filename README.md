@@ -69,28 +69,27 @@ poetry run python llm_sql_converter/poc_sample.py sample_update.sql
 
 ```
 
-executed logs
+output logs
 
 ```
 
 input: BEGIN
-UPDATE employees
-SET
-salary = salary \* 1.05,
-last_update = SYSDATE
-WHERE employee_id = 1234;
-COMMIT;
+    UPDATE employees
+    SET
+        salary = salary * 1.05,
+        last_update = SYSDATE
+    WHERE employee_id = 1234;
+    COMMIT;
 END;
 
 Spark SQL syntax and convert rule validation start ...
-Spark SQL Syntax is valid:
-SELECT
-_,
-CASE
-WHEN employee_id = 1234 THEN salary _ 1.05
-ELSE salary
-END AS salary,
-SYSDATE AS last_update
+Spark SQL Syntax is valid:  SELECT
+    *,
+    CASE
+        WHEN employee_id = 1234 THEN salary * 1.05
+        ELSE salary
+    END AS salary,
+    SYSDATE AS last_update
 FROM employees;
 
 ```
@@ -105,7 +104,7 @@ poetry run python llm_sql_converter/poc_sample.py sample_insert.sql
 
 ```
 
-executed logs
+output logs
 
 ```
 
@@ -113,13 +112,12 @@ input: INSERT INTO employees (employee_id, last_name, email, hire_date, job_id)
 VALUES (207, 'Smith', 'smith@example.com', '17-JUL-2021', 'IT_PROG');
 
 Spark SQL syntax and convert rule validation start ...
-Spark SQL Syntax is valid:
-SELECT
-207 AS employee_id,
-'Smith' AS last_name,
-'smith@example.com' AS email,
-'17-JUL-2021' AS hire_date,
-'IT_PROG' AS job_id
+Spark SQL Syntax is valid:  SELECT
+    207 AS employee_id,
+    'Smith' AS last_name,
+    'smith@example.com' AS email,
+    '17-JUL-2021' AS hire_date,
+    'IT_PROG' AS job_id
 FROM employees;
 
 ```
