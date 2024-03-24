@@ -6,9 +6,15 @@ rules:
     "
   rule_basic_example:
     - input: |
-        SELECT ADD_MONTHS(SYSDATE, 3) AS three_months_later FROM dual;
+        BEGIN
+            INSERT INTO employees (employee_id, last_name, email, hire_date, job_id)
+            VALUES (207, 'Smith', 'smith@example.com', '17-JUL-2021', 'IT_PROG');
+            COMMIT;
+        END;
       output: |
-        SELECT add_months(current_date(), 3) AS three_months_later;
+        INSERT INTO employees (employee_id, last_name, email, hire_date, job_id)
+        VALUES (207, 'Smith', 'smith@example.com', '17-JUL-2021', 'IT_PROG');
+
   rule_update: "
     ### Instructions ###
     Convert the Databricks SQL following the rules below.

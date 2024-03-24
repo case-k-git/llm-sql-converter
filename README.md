@@ -31,18 +31,17 @@ input rule
 rule
 
 ```yaml
-rule: "
+rule_update: "
   ### Instructions ###
-  Convert the entered PL/SQL into Spark SQL following the rules below.
+  Convert the Databricks SQL following the rules below.
   1.Convert UPDATE statements into SELECT statements using CASE WHNE CONDITION.
-  2.Convert INSERT statements into SELECT statements that produce the result of the INSERT operation.
   "
 ```
 
 rule exmaple of input and output results
 
 ```yaml
-rule_example:
+rule_update_example:
   - input: |
       UPDATE employees
       SET salary = CASE
