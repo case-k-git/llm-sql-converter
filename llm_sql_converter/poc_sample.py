@@ -62,12 +62,12 @@ def main(file_name) -> str:
     if 'UPDATE' in result:
         rule_update = rules['rules']['rule_update']
         rule_update_example = rules['rules']['rule_update_example']
-        result = convert_spark_sql(input_sql, rule_update, rule_update_example)
+        result = convert_spark_sql(result, rule_update, rule_update_example)
 
     if 'INSERT' in result:
-        rule_update = rules['rules']['rule_insert']
-        rule_update_example = rules['rules']['rule_insert_example']
-        result = convert_spark_sql(input_sql, rule_update, rule_update_example)
+        rule_insert = rules['rules']['rule_insert']
+        rule_insert_example = rules['rules']['rule_insert_example']
+        result = convert_spark_sql(result, rule_insert, rule_insert_example)
 
     output_path = f'./output/{file_name}'
     with open(output_path, 'w', encoding='utf-8') as file:
