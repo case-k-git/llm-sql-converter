@@ -81,21 +81,6 @@ input: BEGIN
     COMMIT;
 END;
 
-validation failed new prompt is created: Spark SQL parse error:
-[PARSE_SYNTAX_ERROR] Syntax error at or near 'COMMIT': extra input 'COMMIT'.(line 5, pos 0)
-
-== SQL ==
- UPDATE employees
-SET salary = salary * 1.05,
-last_update = current_date()
-WHERE employee_id = 1234;
-COMMIT;
-^^^
-.Please fix.
-Spark SQL Syntax is valid:  UPDATE employees
-SET salary = salary * 1.05,
-last_update = current_date()
-WHERE employee_id = 1234;
 Spark SQL Syntax is valid:  SELECT
     *,
     CASE
@@ -103,8 +88,6 @@ Spark SQL Syntax is valid:  SELECT
         ELSE salary
     END AS salary,
     SYSDATE AS last_update
-FROM employees;
-
 ```
 
 ### 2. PL/SQL to Spark SQL ( Insert to Select )

@@ -43,7 +43,6 @@ def convert_spark_sql(input_sql: str, rule: str=None, rule_sample: str=None) -> 
         sql = predict(input_sql, rule, rule_sample)
         input_sql, valid = validate_spark_sql(sql)
         if valid:
-            print(f'Spark SQL Syntax is valid: {input_sql}')
             return input_sql
     raise Exception(f'Failed to convert SQL to Spark SQL: {input_sql}')
 
@@ -68,7 +67,8 @@ def main(file_name) -> str:
         rule_insert = rules['rules']['rule_insert']
         rule_insert_example = rules['rules']['rule_insert_example']
         result = convert_spark_sql(result, rule_insert, rule_insert_example)
-
+        
+    print(f'Spark SQL Syntax is valid: {result}')
     output_path = f'./output/{file_name}'
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write(result)
