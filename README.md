@@ -64,7 +64,7 @@ command to execute
 
 ```
 
-poetry run python llm_sql_converter/poc_sample.py sample_update.sql
+poetry run python llm_sql_converter/poc_sample.py sample_update_2.sql
 
 ```
 
@@ -73,21 +73,21 @@ output logs
 ```
 
 input: BEGIN
-    UPDATE employees
-    SET
-        salary = salary * 1.05,
-        last_update = SYSDATE
-    WHERE employee_id = 1234;
+    UPDATE  employees
+        SET
+            employees.salary = 100
+        WHERE employees.YM = v年月
+        AND SUBSTR(employees.SHAINNO,1,2) <>  '37';
     COMMIT;
 END;
 
 Spark SQL Syntax is valid:  SELECT
     *,
     CASE
-        WHEN employee_id = 1234 THEN salary * 1.05
+        WHEN YM = 'v年月' AND SUBSTR(SHAINNO,1,2) <> '37' THEN 100
         ELSE salary
-    END AS salary,
-    SYSDATE AS last_update
+    END AS salary
+FROM employees;
 ```
 
 ### 2. PL/SQL to Spark SQL ( Insert to Select )
