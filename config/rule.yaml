@@ -1,7 +1,8 @@
 rules:
   rule_basic: "
     ### Instructions ###
-    Convert the entered PL/SQL into Databricks SQL.
+    Convert the entered PL/SQL into Databricks SQL following the rules below.
+    1. Add single quotes to the string literals if missing.
     "
   rule_basic_example:
     - input: |
