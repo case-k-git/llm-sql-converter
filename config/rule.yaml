@@ -1,11 +1,19 @@
 rules:
-  rule: "
+  rule_basic: "
     ### Instructions ###
-    Convert the entered PL/SQL into Spark SQL following the rules below.
-    1.Convert UPDATE statements into SELECT statements using CASE WHNE CONDITION.
-    2.Convert INSERT statements into SELECT statements that produce the result of the INSERT operation.
+    Convert the entered PL/SQL into Databricks SQL.
     "
-  rule_example:
+  rule_basic_example:
+    - input: |
+        SELECT ADD_MONTHS(SYSDATE, 3) AS three_months_later FROM dual;
+      output: |
+        SELECT add_months(current_date(), 3) AS three_months_later;
+  rule_update: "
+    ### Instructions ###
+    Convert the Databricks SQL following the rules below.
+    1.Convert UPDATE statements into SELECT statements using CASE WHNE CONDITION.
+    "
+  rule_update_example:
     - input: |
         UPDATE employees
         SET salary = CASE
@@ -19,4 +27,16 @@ rules:
                 WHEN department_id = 1 THEN salary * 1.10
                 ELSE salary
             END AS salary
+        FROM employees;
+  rule_insert: "
+    ### Instructions ###
+    Convert the Databricks SQL following the rules below.
+    1.Convert INSERT statements into SELECT statements that produce the result of the INSERT operation.
+    "
+  rule_insert_example:
+    - input: |
+        INSERT INTO employees (employee_id) VALUES (101);
+      output: |
+        SELECT
+            employee_id
         FROM employees;
