@@ -2,10 +2,9 @@
 
 This is a tool that uses [LangChain](https://github.com/langchain-ai/langchain) to convert PL/SQL into SparkSQL SELECT statements. The query is converted in the following steps:
 
-1. Read the PL/SQL input, considering samples for conversion (few_shot_prompt).
-2. Convert to Spark SQL SELECT statements based on the specified rules.
-3. Check the syntax of the converted Spark SQL. If there are any errors, new prompt will be created using SQL and errors and passed to the LLM to fix converted SQL.Currently, it retries up to 3 times until successful.
-4. Retrieve the converted results.
+1. Convert PL/SQL to Spark SQL statements based on the specified rules and example(few_shot_prompt).
+2. Check the syntax of the converted Spark SQL. If there are any errors, new prompt will be created using SQL and errors and passed to the LLM to fix converted SQL.Currently, it retries up to 3 times until successful.
+3. Retrieve the converted results.
 
 ## Set Up
 
