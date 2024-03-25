@@ -63,7 +63,7 @@ command to execute
 
 ```
 
-poetry run python llm_sql_converter/poc_sample.py sample_update_2.sql
+poetry run python llm_sql_converter/main.py sample_update_2.sql
 
 ```
 
@@ -95,7 +95,7 @@ command to execute
 
 ```
 
-poetry run python llm_sql_converter/poc_sample.py sample_insert.sql
+poetry run python llm_sql_converter/main.py sample_insert.sql
 
 ```
 
